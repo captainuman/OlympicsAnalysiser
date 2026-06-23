@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 
 def fetch_medal_tally(df,year,country):
@@ -254,7 +253,12 @@ def train_medal_prediction_model_with_features(df, model_choice="Random Forest")
     elif model_choice == "Logistic Regression":
         model = LogisticRegression(max_iter=1000)
     elif model_choice == "XGBoost":
-        model = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss')
+        from xgboost import XGBClassifier
+
+        model = XGBClassifier(
+            eval_metric="mlogloss",
+            random_state=42
+        )
     else:
         raise ValueError("Unsupported model type selected.")
 

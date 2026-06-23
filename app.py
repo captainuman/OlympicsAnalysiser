@@ -49,7 +49,8 @@ if "user_name" not in st.session_state:
 
 
 try:
-    df = load_data()
+    with st.spinner("Loading Olympic data..."):
+        df = load_data()
 except Exception as e:
     st.error(f"Error loading data: {e}")
     st.stop()
